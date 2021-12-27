@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'django_filters',
     'corsheaders',
+    'core',
 ]
 #True場合、ホワイトリストは使用されず、すべての起源が受け入れられます。 デフォルトはFalseです。
 CORS_ORIGIN_ALLOW_ALL = False
@@ -124,12 +125,18 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
+# 認証に使うモデルを設定
+AUTH_USER_MODEL = 'core.User'
+
 STATIC_URL = 'static/'
 
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')
 ]
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
