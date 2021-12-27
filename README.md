@@ -1,1 +1,2 @@
 # Django_rest_template
+ライブラリ詳細はpipfileを参照
