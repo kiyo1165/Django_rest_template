@@ -8,6 +8,7 @@ from rest_framework import viewsets
 from rest_framework.authentication import TokenAuthentication
 from django.db import IntegrityError
 from rest_framework.exceptions import ValidationError
+from core import ownpermissions
 
 # Create your views here.
 
@@ -21,7 +22,7 @@ class CreateUserView(generics.CreateAPIView):
 class ManageUserView(generics.RetrieveUpdateAPIView):
     serializer_class = serializers.UserSerializer
     #認証
-    authentication_classes = (authentication.TokenAuthentication,)
+    authentication_classes = (authentication.TokenAuthentication, )
     # 権限：ログインユーザーのみ
     permission_classes = (permissions.IsAuthenticated,)
 
@@ -33,7 +34,7 @@ class ManageUserView(generics.RetrieveUpdateAPIView):
 class ProfileViewSet(viewsets.ModelViewSet):
     queryset = Profile.objects.all()
     serializer_class = serializers.ProfileSerializer
-    authentication_classes = (authentication.TokenAuthentication,)
+    authentication_classes = (authentication.TokenAuthentication, ownpermissions.ProfilePermission)
     permission_classes = (permissions.IsAuthenticated, )
 
     #登録しているユーザーのProfileのみ表示できるようにする。
