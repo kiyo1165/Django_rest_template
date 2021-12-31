@@ -32,9 +32,13 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    #Token認証
+    'rest_framework.authtoken',
     'django_filters',
     'corsheaders',
     'core',
+    'api_user',
+    'api_dm',
 ]
 #True場合、ホワイトリストは使用されず、すべての起源が受け入れられます。 デフォルトはFalseです。
 CORS_ORIGIN_ALLOW_ALL = False

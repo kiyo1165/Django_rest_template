@@ -1,11 +1,15 @@
 from django.contrib import admin
-from django.urls import path
-import settings
+from django.urls import path, include
+from djangoProject1228 import settings
 from django.conf.urls.static import static
+from rest_framework.authtoken import views
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('authen/', views.obtain_auth_token), #トークンの取得
+    path('api/user/', include('api_user.urls')),
+    path('api/dm/', include('api_dm.urls'))
 ]
 
 if settings.DEBUG:

@@ -37,7 +37,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
 
-    objects = UserManager
+    objects = UserManager()
 
     # デフォルトの入力をemailに変更
     USERNAME_FIELD = 'email'
@@ -56,10 +56,24 @@ class Profile(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     friends = models.ManyToManyField(
         settings.AUTH_USER_MODEL, related_name='friends',
-        on_delete=models.CASCADE
     )
 
     img = models.ImageField(blank=True, null=True, upload_to=upload_path)
 
     def __str__(self):
         return self.nickname
+
+
+class Message(models.Model):
+    message = models.CharField(max_length=200)
+    sender = models.ForeignKey(settings.AUTH_USER_MODEL,
+                               related_name='sender',
+                               on_delete=models.CASCADE
+                               )
+    receiver = models.ForeignKey(settings.AUTH_USER_MODEL,
+                                 related_name='receiver',
+                                 on_delete=models.CASCADE
+                                 )
+
+    def __str__(self):
+        return self.message
