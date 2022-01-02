@@ -6,7 +6,7 @@ from djangoProject1228 import settings
 
 def upload_path(instance, filename):
     ext = filename.split('.')[-1]
-    return '/'.join(['image', str(instance.user.id)+str(instance.nickname)+str(".")+str(ext)])
+    return '/'.join(['image', str(instance.userpro.id)+str(instance.nickname)+str(".")+str(ext)])
 
 
 class UserManager(BaseUserManager):
@@ -48,8 +48,8 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 class Profile(models.Model):
     nickname = models.CharField(max_length=20)
-    user = models.OneToOneField(
-        settings.AUTH_USER_MODEL, related_name='user',
+    userpro = models.OneToOneField(
+        settings.AUTH_USER_MODEL, related_name='userpro',
         on_delete=models.CASCADE
     )
 
@@ -77,3 +77,23 @@ class Message(models.Model):
 
     def __str__(self):
         return self.message
+
+
+class Tweet(models.Model):
+
+    text = models.CharField(max_length=140)
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL,
+                               related_name='owner',
+                               on_delete=models.CASCADE
+                               )
+
+    def tweet_by(self):
+        try:
+            temp = Profile.objects.get(usrepro=self.owner)
+        except Profile.DoesNotExist:
+            temp = None
+            return
+        return temp.nickname
+
+    def __str__(self):
+        return self.text

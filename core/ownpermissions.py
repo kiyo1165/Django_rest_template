@@ -7,5 +7,12 @@ class ProfilePermission(permissions.BasePermission):
     def has_object_permission(self, request, view, obj):
         if request.method in permissions.SAFE_METHODS:
             return True
-        return obj.user.id == request.user.id
+        return obj.userpro.id == request.user.id
+
+
+class TweetPermission(permissions.BasePermission):
+    def has_object_permission(self, request, view, obj):
+        if request.method in permissions.SAFE_METHODS:
+            return True
+        return obj.owner.id == request.user.id
 

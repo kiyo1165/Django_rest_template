@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'core',
     'api_user',
     'api_dm',
+    'api_tweet',
 ]
 #True場合、ホワイトリストは使用されず、すべての起源が受け入れられます。 デフォルトはFalseです。
 CORS_ORIGIN_ALLOW_ALL = False

@@ -41,7 +41,7 @@ class ProfileViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         #自身のprofileオブジェクトを取得、なければNone
         try:
-            is_friend = Profile.objects.get(user=self.request.user)
+            is_friend = Profile.objects.get(userpro=self.request.user)
         except Profile.DoesNotExist:
             is_friend = None
             return
@@ -49,13 +49,13 @@ class ProfileViewSet(viewsets.ModelViewSet):
         #友達になっているuserのフィルターを作成
         friend_filter = Q()
         for friend in is_friend.friends.all():
-            friend_filter = friend_filter | Q(user=friend)
+            friend_filter = friend_filter | Q(userpro=friend)
 
         return self.queryset.filter(friend_filter)
 
     def perform_create(self, serializer):
         try:
-            serializer.save(user=self.request.user)
+            serializer.save(userpro=self.request.user)
         except IntegrityError:
             # profile と userモデルはone to oneなのでIntegrityErrorが発生させる。
             raise ValidationError("User can have only one own profile")

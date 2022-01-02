@@ -9,7 +9,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('authen/', views.obtain_auth_token), #トークンの取得
     path('api/user/', include('api_user.urls')),
-    path('api/dm/', include('api_dm.urls'))
+    path('api/dm/', include('api_dm.urls')),
+    path('api/tweet/', include('api_tweet.urls')),
 ]
 
 if settings.DEBUG:
