@@ -37,7 +37,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
 
-    objects = UserManager
+    objects = UserManager()
 
     # デフォルトの入力をemailに変更
     USERNAME_FIELD = 'email'
