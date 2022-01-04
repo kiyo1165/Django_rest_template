@@ -6,7 +6,7 @@ from djangoProject1228 import settings
 
 def upload_path(instance, filename):
     ext = filename.split('.')[-1]
-    return '/'.join(['image'], str(instance.user.id)+str(instance.nickname)+str(".")+str(ext))
+    return '/'.join(['image', str(instance.user.id)+str(instance.nickname)+str(".")+str(ext)])
 
 
 class UserManager(BaseUserManager):
